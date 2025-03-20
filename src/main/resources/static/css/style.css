@@ -9,5 +9,42 @@ body{
 .debug *{border: 1px black dashed;}
 img{max-width: 100%;}
 :root{
-
+    --green: #1e8c1e;
 }
+.bg-green{
+    border:3px var(--green) solid;
+    &:hover{
+        background-color: var(--green);
+    }
+}
+
+.hero-section{
+    height: 43rem;  
+    overflow: hidden;
+    background-image: url('/images/index/pizzeria.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 36%;
+    position: relative;
+}
+.hero-overlay{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* navbar */
+.navbar a{
+    color: var(--green);
+}
+.nav-link:hover{
+    color: white !important;
+}
+.dropdown:hover .dropdown-menu{
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.dropdown-toggle::after{   /* remove little rendered arrow near the item name */
+    /* display: none !important; */
+}
+
+
+
