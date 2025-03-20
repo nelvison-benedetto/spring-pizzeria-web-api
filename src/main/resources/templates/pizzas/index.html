@@ -16,9 +16,9 @@
         <div class="row g-3" th:if="${pizzas.size() > 0}"> 
             <div class="col-3" th:each="pizza : ${pizzas}">
                 <div class="card">
-                    <img th:src="${pizza.picture}" alt="pizza image" class="card-image-top">
+                    <img th:src="@{ /images/pizzas/{img} (img=${pizza.picture}) }" alt="pizza image" class="card-image-top">
                     <div class="card-body">
-                        <h4 th:text="${pizza.id}" class="fs-6" style="margin-bottom: -0.1rem;" />
+                        <h4 th:text="${pizza.id}" class="fs-6 mb-2"  />
                         <h2 th:text="${pizza.name}" class="card-title"/>
                         <p th:text="${pizza.content}" class="card-text"/>
                         <a th:href="@{pizzas/{id} (id=${pizza.id} )}" class="btn btn-success">View more</a>
