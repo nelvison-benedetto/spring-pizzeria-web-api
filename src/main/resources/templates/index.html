@@ -9,71 +9,73 @@
 </head>
 <body class=" bg-success">
 
-    <!-- margin: 1.3rem 6rem 0 0; -->
 
     <section class="hero-section d-flex align-items-center justify-content-center">
 
-        <nav class="navbar navbar-expand-lg position-absolute top-0 end-0" style="margin: 1.1rem 3.2rem 0 0;">
-            <div class="container-fluid">
-                <!-- button x mobile cellulare -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-        
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-decoration-underline" th:href="@{/pizzas}">Pizzas</a>
-                        </li>
-
-                        <li class="nav-item position-relative">
-                            <a class="nav-link text-decoration-underline" href="#" id="geoLink">
-                                Geolocalization
-                            </a>
-                            <div id="geoPopup" class="position-absolute bg-white shadow p-2 rounded"
-                                style="display: none; z-index: 100;">
-                                <iframe src="https://www.google.com/maps/embed?pb=!4v1742497147646!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0VxOGlJaFFF!2m2!1d44.30314321558385!2d9.209865628730391!3f208.0452082263748!4f9.071459558692368!5f0.7820865974627469" width="350" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                </iframe>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-decoration-underline" href="#">Order now</a>
-                        </li>
-        
-                        <!-- Primo dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="specialEventsDropdown" role="button" data-bs-toggle="dropdown">
-                                Special events
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="specialEventsDropdown">
-                                <li><a class="dropdown-item" href="#">Karaoke Night</a></li>
-                                <li><a class="dropdown-item" href="#">Gender Reveal Party</a></li>
-                                <li><a class="dropdown-item" href="#">Beach Lights Party</a></li>
-                            </ul>
-                        </li>
-        
-                        <!-- Secondo dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
-                                More options
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="#">Login</a></li>
-                                <li><a class="dropdown-item" href="#">Eat & Earn Card</a></li>
-                                <li><a class="dropdown-item" href="#">Merchandising</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+        <!-- <header>
+            <nav class="navbar navbar-expand-lg position-absolute top-0 end-0" style="margin: 1.1rem 3.2rem 0 0;" th:fragment="navbar">
+                <div class="container-fluid">
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-decoration-underline" th:href="@{/pizzas}">Pizzas</a>
+                            </li>
+            
+                            <li class="nav-item position-relative">
+                                <a class="nav-link text-decoration-underline" href="#" id="geoLink">
+                                    Geolocalization
+                                </a>
+                                <div id="geoPopup" class="position-absolute bg-white shadow p-2 rounded"
+                                    style="display: none; z-index: 100;">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!4v1742497147646!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0VxOGlJaFFF!2m2!1d44.30314321558385!2d9.209865628730391!3f208.0452082263748!4f9.071459558692368!5f0.7820865974627469" width="350" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </li>
+            
+                            <li class="nav-item">
+                                <a class="nav-link text-decoration-underline" href="#">Order now</a>
+                            </li>
+            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="specialEventsDropdown" role="button" data-bs-toggle="dropdown">
+                                    Special events
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="specialEventsDropdown">
+                                    <li><a class="dropdown-item" href="#">Karaoke Night</a></li>
+                                    <li><a class="dropdown-item" href="#">Gender Reveal Party</a></li>
+                                    <li><a class="dropdown-item" href="#">Beach Lights Party</a></li>
+                                </ul>
+                            </li>
+            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                                    More options
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Login</a></li>
+                                    <li><a class="dropdown-item" href="#">Eat & Earn Card</a></li>
+                                    <li><a class="dropdown-item" href="#">Merchandising</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+            
                 </div>
+            </nav>
+        </header>  -->
+
         
-            </div>
-        </nav>
-   
-        <div class="hero-overlay d-flex flex-column align-items-center justify-content-center rounded text-white" style="padding: 0.92rem; margin-top: -1.6rem;">
+        <header th:replace="~{fragments/layout::header}"/>
+
+        <div class="hero-overlay d-flex flex-column align-items-center justify-content-center rounded text-white" style="padding: 0.92rem 0.92rem 1.28rem 0.92rem; margin-top: -1.2rem;">
             <h1 class="fst-italic fw-normal" style="font-size: 2.6rem;" >La Dolce Vita feelings</h1>
-            <h3 style="margin-top: -0.1rem;">Come to eat the most delicious Italian pizzas.</h3>
-            <a class="btn bg-green" role="button" style="color: white;" th:href="@{/pizzas}">Eat Pizzas</a>
+            <h3 style="margin-top: -0.22rem;">Come to eat the most delicious Italian pizzas.</h3>
+            <a class="btn bg-overlay-green " role="button" style="color: white; margin-top: 0.4rem;" th:href="@{/pizzas}">Eat Pizzas</a>
         </div>
     </section>
 

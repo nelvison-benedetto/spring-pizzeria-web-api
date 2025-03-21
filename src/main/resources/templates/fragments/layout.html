@@ -1,0 +1,64 @@
+
+
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg top-0 end-0"
+        th:classappend="${page == 'home' ? 'navbar-custom-mp  position-absolute' : 'd-flex justify-content-end  container'}">
+
+        <div class="container-fluid d-flex"
+            th:classappend="${page == 'home' ? '' : 'justify-content-end'}">
+
+            <!-- Mobile Navbar Toggle Button -->
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">  <!-- Align items to the right -->
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-underline" th:href="@{/pizzas}">Pizzas</a>
+                    </li>
+    
+                    <li class="nav-item position-relative">
+                        <a class="nav-link text-decoration-underline" href="#" id="geoLink">
+                            Geolocalization
+                        </a>
+                        <div id="geoPopup" class="position-absolute bg-white shadow p-2 rounded"
+                            style="display: none; z-index: 100;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!4v1742497147646!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0VxOGlJaFFF!2m2!1d44.30314321558385!2d9.209865628730391!3f208.0452082263748!4f9.071459558692368!5f0.7820865974627469" width="350" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link text-decoration-underline" href="#">Order now</a>
+                    </li>
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="specialEventsDropdown" role="button" data-bs-toggle="dropdown">
+                            Special events
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="specialEventsDropdown">
+                            <li><a class="dropdown-item" href="#">Karaoke Night</a></li>
+                            <li><a class="dropdown-item" href="#">Gender Reveal Party</a></li>
+                            <li><a class="dropdown-item" href="#">Beach Lights Party</a></li>
+                        </ul>
+                    </li>
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                            More options
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><a class="dropdown-item" href="#">Eat & Earn Card</a></li>
+                            <li><a class="dropdown-item" href="#">Merchandising</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+

@@ -12,6 +12,16 @@ img{max-width: 100%;}
     --green: #1e8c1e;
 }
 .bg-green{
+    color: white;
+    background-color: var(--green);
+    /* transition: background-color 0.3s ease, filter 0.3s ease; */
+    &:hover{
+        /* color: #51ff00; */
+        background-color: #218838;
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
+    }
+}
+.bg-overlay-green{
     border:3px var(--green) solid;
     &:hover{
         background-color: var(--green);
@@ -19,7 +29,7 @@ img{max-width: 100%;}
 }
 
 .hero-section{
-    height: 43rem;  
+    height: 43.2rem;  
     overflow: hidden;
     background-image: url('/images/index/pizzeria.jpg');
     background-repeat: no-repeat;
@@ -32,6 +42,9 @@ img{max-width: 100%;}
 }
 
 /* navbar */
+.navbar-custom-mp{
+    margin: 1.1rem 3.2rem 0 0;
+}
 .navbar a{
     color: var(--green);
 }
@@ -45,6 +58,18 @@ img{max-width: 100%;}
 .dropdown-toggle::after{   /* remove little rendered arrow near the item name */
     /* display: none !important; */
 }
+
+/* pizza card */
+.pizza-img{
+    height: 12rem;
+    overflow: hidden;
+    & img{
+        width: 100%;        /*fills the container*/
+        height: 100%;       /*stretch to container*/
+        object-fit: cover;      /* crop */
+    }
+}
+
 
 
 
