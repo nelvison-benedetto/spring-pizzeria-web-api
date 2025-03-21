@@ -9,7 +9,10 @@ body{
 .debug *{border: 1px black dashed;}
 img{max-width: 100%;}
 :root{
-    --green: #1e8c1e;
+    --green: #369c36;
+    --greendark: #218838;
+    --orange: #ea9009;
+    --orangedark: #C47100;
 }
 .bg-green{
     color: white;
@@ -17,8 +20,17 @@ img{max-width: 100%;}
     /* transition: background-color 0.3s ease, filter 0.3s ease; */
     &:hover{
         /* color: #51ff00; */
-        background-color: #218838;
+        color: white;
+        background-color: var(--greendark);
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); */
+    }
+}
+.bg-orange{
+    color: white;
+    background-color: var(--orange);
+    &:hover{
+        color: white;
+        background-color: var(--orangedark);
     }
 }
 .bg-overlay-green{
@@ -26,6 +38,12 @@ img{max-width: 100%;}
     &:hover{
         background-color: var(--green);
     }
+}
+.text-white-important{
+    color: white !important;
+}
+.container2{
+    padding: 0 9%;
 }
 
 .hero-section{
@@ -58,6 +76,21 @@ img{max-width: 100%;}
 .dropdown-toggle::after{   /* remove little rendered arrow near the item name */
     /* display: none !important; */
 }
+.navbar.text-white-important,
+.navbar.text-white-important .navbar-nav .nav-link,
+.navbar.text-white-important .navbar-toggler-icon {
+    color: white !important;
+    fill: white !important;  /* For SVG icons */
+}
+
+
+
+
+.pizzas-bg{
+    background-color: #3e2723;
+    background-image: url("https://www.transparenttextures.com/patterns/tileable-wood-colored.png");
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
 
 /* pizza card */
 .pizza-img{
@@ -70,6 +103,27 @@ img{max-width: 100%;}
     }
 }
 
+.home-img{
+    overflow: hidden;
+    height: 31rem;
+    & img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 15%;
+        /* transform: translateY(35px); */
+    }
+}
 
 
+/* footer */
+.footer-img{
+    height: 43.2rem;  
+    overflow: hidden;
+    background-image: url('/images/footer/red-wine-okok-final.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    position: relative;
+}
 
