@@ -1,6 +1,10 @@
 package org.lessons.java.spring_pizzeriacrud.controllers;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.lessons.java.spring_pizzeriacrud.models.Pizza;
 import org.lessons.java.spring_pizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +44,23 @@ public class PizzaController {
         return "pizzas/show";
     }
 
-    @GetMapping("/searchByName")  //http://localhost:8080/pizzas/searchByName?name=pho
-    public String searchByName(@RequestParam(name="name") String name,
+    //filters
+    @GetMapping("/searchByForm")  //TEST AGAIN!!NOW IS'T FILTERING (before all worked correctly, nedd to investigations)
+    public String searchByForm(
+    @RequestParam(name="title", required = false, defaultValue = "") String title,
+    @RequestParam(name="content", required = false, defaultValue = "") String content,
+    @RequestParam(name = "restrictions", required = false) Set<String> restrictions,
     Model model){
-        List<Pizza> pizzas = repository.findByNameContaining(name);
+        List<Pizza> pizzas; 
+        if( restrictions == null || restrictions.isEmpty()){  //try before '==null' otherwise it will give you error
+            pizzas = repository.findByTitleContainingOrContentContaining(title, content); 
+        }else { 
+            pizzas = repository.findByTitleContainingAndContentContainingAndRestrictionsIn(title, content, restrictions);
+        }
         model.addAttribute("pizzas", pizzas);
         return "pizzas/index";
     }
+
 
     @GetMapping("/searchByPriceBetween")
     public String searchByPriceBetween(

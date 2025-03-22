@@ -11,28 +11,73 @@
     
     <header th:replace="~{fragments/layout::header}"/>
 
-    <article class="container mt-4 mb-4">
-        <p th:if="${pizzas == null}" th:text="|non-existing pizzas!|" />
-        <div class="row g-3" th:if="${pizzas.size() > 0}"> 
-            <div class="col-sm-6 col-md-4 col-lg-3" th:each="pizza : ${pizzas}">
-                <div class="card h-100">
-                    <div class="pizza-img d-flex justify-content-center align-items-center">
-                        <img th:src="@{ /images/pizzas/{img} (img=${pizza.picture}) }" alt="pizza image" class="card-image-top ">
+    <div class="container">
+
+        <form th:action="@{/pizzas/searchByForm}" method="get" class="card rounded p-4 bg-blacktransparent text-white mb-4">
+            <h3 class="fs-2">Filter by</h3>
+            <div class="row mb-2">
+                <div class="form-group col-sm-12 col-md-6 mb-2">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Name">
+                </div>
+                <div class="form-group col-sm-12 col-md-6">
+                    <label for="content">Ingredients</label>
+                    <input type="text" class="form-control" name="content" id="content" placeholder="Ingredients">
+                </div>
+            </div>
+            <fieldset class="form-group mb-3">
+                <legend>Dietary Restrictions</legend>
+                <div class="form-row">
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" name="restrictions" id="restrictionGlutenFree" value="gluten-free">
+                        <label for="restrictionGlutenFree" class="form-check-label">🌾Gluten-Free</label>
                     </div>
-                    <div class="card-body d-flex flex-column position-relative" style="padding-bottom: 3.3rem;">
-                        <h4 th:text="${pizza.id}" class="fs-6 mb-1"  />
-                        <h2 th:text="${pizza.name}" class="card-title" />
-                        <p th:text="${pizza.content}" class="card-text" style="margin-top: -0.2rem;" />
-                        <div class="position-absolute" style="bottom: 1rem; right:1rem;">
-                            <a href="#" class="btn bg-orange">Order online</a>
-                            <a th:href="@{pizzas/{id}(id=${pizza.id} )}" class="btn bg-green  " >View more</a>
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" name="restrictions" id="restrictionVegetarian" value="vegetarian">
+                        <label for="restrictionVegetarian" class="form-check-label">🥦Vegetarian</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" name="restrictions" id="restrictionHalal" value="halal">
+                        <label for="restrictionHalal" class="form-check-label">🕌 Halal</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="text-start d-flex gap-3">
+                <button type="submit" class="btn btn-primary ">Submit</button>
+                <a type="reset" class="btn btn-secondary" th:href="@{/pizzas}">Clean all</a>
+            </div>
+        </form>
+        
+        
+        <article class="mb-4">
+            <h3 th:if="${pizzas == null}" th:text="|non-existing pizzas!|" class="text-white" />
+            <div class="row g-3" th:if="${pizzas.size() > 0}"> 
+                <div class="col-sm-6 col-md-4 col-lg-3" th:each="pizza : ${pizzas}">
+                    <div class="card h-100">
+                        <div class="pizza-img d-flex justify-content-center align-items-center">
+                            <img th:src="@{ /images/pizzas/{img} (img=${pizza.picture}) }" alt="pizza image" class="card-image-top ">
+                        </div>
+                        <div class="card-body d-flex flex-column position-relative" style="padding-bottom: 3.3rem;">
+                            <h4 th:text="${pizza.id}" class="fs-6 mb-1"  />
+                            <h2 th:text="${pizza.title}" class="card-title" />
+                            <p th:text="${pizza.content}" class="card-text" style="margin-top: -0.2rem;" />
+                            <div class="position-absolute d-flex text-end gap-1" style="bottom: 1rem; right:1rem; padding-left: 1rem;">
+                                <a href="#" class="btn bg-orange  d-flex " style="gap: 0.32rem;">   <!--using bootstap @mediaqueries to show one or the other -->
+                                    <span class="btn-text   d-sm-inline d-md-inline d-lg-inline d-xl-inline">Add</span>  <!--d-none -->
+                                    <i class="bi bi-plus-square-fill  d-sm-inline d-md-inline  d-lg-inline  d-xl-inline"></i>
+                                </a>
+                                <a th:href="@{pizzas/{id}(id=${pizza.id} )}" class="btn bg-green  " >
+                                    <span class="btn-text  d-xs-inline  d-sm-none d-md-inline  d-lg-inline d-xl-inline">View more</span>
+                                    <i class="bi bi-info-circle-fill  d-none d-sm-inline d-md-none  d-lg-none  d-xl-none"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <p th:unless="${pizzas.size() > 0}" th:text="|No pizza found, pizzas existing.|" />
-    </article>
+            <h3 th:unless="${pizzas.size() > 0}" th:text="|No pizza found, pizzas existing.|" class="text-white"/>
+        </article>
+    </div>
 
     <footer class="footer-img">
         <div >

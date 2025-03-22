@@ -13,7 +13,11 @@ img{max-width: 100%;}
     --greendark: #218838;
     --orange: #ea9009;
     --orangedark: #C47100;
+    --gray: #EAEAEA;
+    --blacktransparent: rgba(0, 0, 0, 0.5);
 }
+.bg-gray{ background-color: var(--gray); }
+.bg-blacktransparent{ background-color: var(--blacktransparent); }
 .bg-green{
     color: white;
     background-color: var(--green);
