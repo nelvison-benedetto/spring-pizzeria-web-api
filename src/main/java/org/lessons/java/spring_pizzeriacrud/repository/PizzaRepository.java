@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PizzaRepository extends JpaRepository<Pizza, Integer>{
+    //!You have now automatically inherited CRUD methods like save(), findAll(), etc., through Spring JPA Query Methods
 
     public List<Pizza> findByTitleContainingAndContentContainingAndRestrictionsIn(String title, String content, Set<String> restrictions);
     public List<Pizza> findByTitleContainingOrContentContaining(String title, String content);  //using OR to find not only 'Diavola' with content 'fontina' but all!

@@ -50,8 +50,7 @@
         
         
         <article class="mb-4">
-            <h3 th:if="${pizzas == null}" th:text="|non-existing pizzas!|" class="text-white" />
-            <div class="row g-3" th:if="${pizzas.size() > 0}"> 
+            <div class="row g-3" th:if="${ not #lists.isEmpty(pizzas) }">  <!--!BETTER than pizzas.size()>0 -->
                 <div class="col-sm-6 col-md-4 col-lg-3" th:each="pizza : ${pizzas}">
                     <div class="card h-100">
                         <div class="pizza-img d-flex justify-content-center align-items-center">
@@ -75,8 +74,9 @@
                     </div>
                 </div>
             </div>
-            <h3 th:unless="${pizzas.size() > 0}" th:text="|No pizza found, pizzas existing.|" class="text-white"/>
+            <h3 th:if="${ #lists.isEmpty(pizzas) }" th:text="|No pizzas found.|" class="text-center text-white"/>  <!--replaced th:unless -->
         </article>
+        
     </div>
 
     <footer class="footer-img">

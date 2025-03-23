@@ -9,14 +9,17 @@ import org.springframework.stereotype.Component;
 public class DatabaseSeeder implements CommandLineRunner{
     
     private final PizzaSeeder pizzaSeeder;
+    private final ReviewSeeder reviewSeeder;
 
-    @Autowired  //inject instance PizzaSeeder in this instance DatabaseSeeder
-    public DatabaseSeeder(PizzaSeeder pizzaSeeder){
+    @Autowired  //inject instance PizzaSeeder & ReviewSeeder in this instance DatabaseSeeder
+    public DatabaseSeeder(PizzaSeeder pizzaSeeder, ReviewSeeder reviewSeeder){
         this.pizzaSeeder = pizzaSeeder;
+        this.reviewSeeder = reviewSeeder;
     }
 
     @Override
     public void run(String... args){
         pizzaSeeder.seed();
+        reviewSeeder.seed(12);
     }
 }

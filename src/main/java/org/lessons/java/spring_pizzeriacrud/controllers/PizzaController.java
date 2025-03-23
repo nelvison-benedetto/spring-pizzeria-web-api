@@ -32,7 +32,7 @@ public class PizzaController {
     @GetMapping  //without path is a get to '/pizzas'
     public String pizzasIndex(Model model){
         List<Pizza> pizzas = repository.findAll();
-        model.addAttribute("pizzas", pizzas);
+        model.addAttribute("pizzas", pizzas != null ? pizzas : List.of());   //ensures that pizzas is never null!!
         return "pizzas/index";
     }
 

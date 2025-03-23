@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 
 import net.datafaker.Faker;
 
-@Component
+@Component  //!recognize this as Spring Bean
 public class PizzaSeeder {
     
     private final PizzaRepository pizzaRepository;
     private final Faker faker = new Faker();
 
-    @Autowired  //inject instance of PizzaRepository in this instance of PizzaSeeder, from spring v 4.3+ here not necessary explicit(@...) if only 1 constr
+    @Autowired  //!Inject an instance of PizzaRepository into this PizzaSeeder instance. From Spring v4.3+, explicit @... annotation is not necessary if there is only ONE constructor.
     public PizzaSeeder(PizzaRepository pizzaRepository){
         this.pizzaRepository = pizzaRepository;
     }

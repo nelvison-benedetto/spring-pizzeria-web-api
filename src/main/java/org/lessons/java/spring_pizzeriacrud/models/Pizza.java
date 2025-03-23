@@ -42,7 +42,7 @@ public class Pizza {
 
     @Column(nullable = false)
     @NotBlank(message = "content cannot be blank.")
-    @Size(max=355, message = "content text cannot overload more than 50chars.")  //if u use seeder, set this to many many chars otherwise will get convalid errors
+    @Size(max=355, message = "content text cannot overload more than 355chars.")  //if u use seeder, set this to many many chars otherwise will get convalid errors
     @Lob
     private String content;
 
