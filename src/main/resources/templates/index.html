@@ -24,7 +24,7 @@
 
     <div class="container2">
 
-        <section class="mt-4 row d-flex rounded bg-gray">
+        <section class="mt-4 mb-4 row d-flex rounded bg-gray">
             <div class="col-7 home-img p-3">
                 <img th:src="@{/images/index/inheritance.jpg}" alt="" class="rounded">
             </div>
@@ -34,7 +34,7 @@
             </div>
         </section>
 
-        <section class="mt-4 row d-flex rounded bg-gray">
+        <section class="mb-4 row d-flex rounded bg-gray">
             <div class="col-5" style="padding: 2rem 1rem 2rem 2rem;">
                 <h1>The best flavor for everyone</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt officiis voluptatibus sunt velit atque blanditiis exercitationem ratione placeat tenetur, eaque, aspernatur nemo nobis dolores doloribus repellendus beatae tempore! Perspiciatis, corrupti?</p>
@@ -44,7 +44,7 @@
             </div>
         </section>
 
-        <section class="mt-4  mb-2 row d-flex rounded bg-gray">
+        <section class=" mb-4 row d-flex rounded bg-gray">
             <div class="col-7 home-img p-3 d-flex align-items-end">
                 <img th:src="@{/images/index/staff2.jpg}" alt="" class="rounded">
             </div>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="container3">
-        <form id="review-form" th:action="@{/}" method="post" th:object="${review}" class="card rounded p-4">  <!--better using th:object x POST actions-->
+        <form id="review-form" th:action="@{/reviews/create}" method="post" th:object="${review}" class="card rounded p-4 mb-2">  <!--better using th:object x POST actions-->
             
             <!-- <div th:if="${#fields.hasErrors()}">   don't delete this comment
                 <ul class="alert alert-danger">
@@ -85,16 +85,77 @@
             </div>
         </form>
 
-        <article class="mt-2">
+        <!--all reviews-->
+        <article class="mb-2">
             <h2>Reviews</h2>
             <!-- <h3 th:if="${reviews == null}" th:text="|non-existing reviews!|" class="text-muted text-center" /> -->
             <div class="row g-3" th:if="${not #lists.isEmpty(reviews)}">   <!--!BETTER than reviews.size()>0 -->
-                <div class="col-2" th:each="review : ${reviews}">
+                <div class="col-sm-6 col-md-4 col-lg-3" th:each="review : ${reviews}">
                     <div class="card bg-gray">
                         <div class="card-body">
                             <h6 class="card-subtitle text-muted" th:text="${review.id}"/>
                             <h5 class="card-title" th:text="${review.title}"/>
                             <p class="card-text" th:text="${review.content}" />
+
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#update-modal-' + ${review.id}">Update</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${review.id}">Delete</button>
+
+                            <!--modal(popup) x DELETE-->
+                            <div class="modal fade" th:id="'delete-modal-' + ${review.id}" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModallabel">
+                                                Deleting "[[${review.title}]]"
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want deleted the review with title <strong>"[[${review.title}]]"</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <form th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post" class="d-inline-block">
+                                                <input type="hidden" name="_method" value="delete" />  <!--spring doesn't accept DELETE in the form, but with POST+ _method&value yes-->
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--modal(popup) x PUT-->
+                            <div class="modal fade" th:id="'update-modal-' + ${review.id}" tabindex="-1" aria-labelledby="update-modal"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Update Review</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/reviews/update/{id}(id=${review.id})}" method="post">
+                                                <input type="hidden" name="_method" value="put" />  <!--spring doesn't accept PUT in the form, but with POST+ _method&value yes-->
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">Title</label>
+                                                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" th:value="${review.title}"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="content" class="form-label">Content</label>
+                                                    <textarea class="form-control" id="content" name="content" rows="5" placeholder="Content"
+                                                        required>[[${review.content}]]</textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

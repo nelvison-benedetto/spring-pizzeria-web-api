@@ -58,7 +58,7 @@ public class Pizza {
     @ElementCollection(fetch = FetchType.EAGER)  // Stores as a separate table
     @CollectionTable(name = "pizza_restrictions", joinColumns = @JoinColumn(name = "pizza_id"))
     @Column(name = "restriction")
-    private Set<String> restrictions = new HashSet<>(); 
+    private Set<String> restrictions = new HashSet<>();  //IT WILL NEVER BE NULL!verygood 
 
     // @NotNull
     // private LocalDate publicationDate;

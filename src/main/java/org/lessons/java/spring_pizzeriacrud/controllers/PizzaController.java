@@ -45,17 +45,36 @@ public class PizzaController {
     }
 
     //filters
-    @GetMapping("/searchByForm")  //TEST AGAIN!!NOW IS'T FILTERING (before all worked correctly, nedd to investigations)
+    @GetMapping("/searchByForm")  
     public String searchByForm(
     @RequestParam(name="title", required = false, defaultValue = "") String title,
     @RequestParam(name="content", required = false, defaultValue = "") String content,
     @RequestParam(name = "restrictions", required = false) Set<String> restrictions,
     Model model){
-        List<Pizza> pizzas; 
-        if( restrictions == null || restrictions.isEmpty()){  //try before '==null' otherwise it will give you error
-            pizzas = repository.findByTitleContainingOrContentContaining(title, content); 
-        }else { 
-            pizzas = repository.findByTitleContainingAndContentContainingAndRestrictionsIn(title, content, restrictions);
+        if(restrictions==null){
+            System.out.println("restrictions is ex-NULL!");
+            restrictions = new HashSet<>();
+        }
+        
+        List<Pizza> pizzas;      
+        if (restrictions.isEmpty()) {  
+            if (title == null || title.isBlank()){
+                pizzas = repository.findByContentContaining(content); 
+            }
+            else if (content == null || content.isBlank()) {  
+                pizzas = repository.findByTitleContaining(title);  
+            } 
+            else {  
+                pizzas = repository.findByTitleContainingAndContentContaining(title, content);  
+            }  
+        }else {  
+            if (title == null || title.isBlank()) {  
+                pizzas = repository.findByContentContainingAndRestrictionsIn(content, restrictions);  
+            }else if(content == null || content.isBlank()){  
+                pizzas = repository.findByTitleContainingAndRestrictionsIn(title, restrictions);
+            } else{
+                pizzas = repository.findByTitleContainingAndContentContainingAndRestrictionsIn(title, content, restrictions); 
+            }
         }
         model.addAttribute("pizzas", pizzas);
         return "pizzas/index";
