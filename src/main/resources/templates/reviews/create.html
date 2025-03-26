@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews Id Pizza Form Create Review</title>
+    <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
+    <th:block th:replace="~{fragments/head.html::style_jsscript}" />
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-2">Create new Review</h2>
+        <form th:action="@{/reviews/{id}/create(id=${review.pizza.id})}" method="post" th:object="${review}">  
+            <!--possible also use th:action="${edit}? @{|/reviews/edit/${review.id}|}" : @{|/reviews/create|}  if form create and edit are equal!-->
+                <!--and in the controller add  model.addAttribute("edit", true)
+                return "pizzas/create-or-edit.html" //her in this html there is the form used for both create&edit review-->
+            <!--!!better using th:object x POST actions!-->
+            <input type="hidden" th:field="*{pizza}" id="linked-pizza"> <!--ADD THIS TO RECOVER UR PIZZA AFTER ERRORS/REFRESH!-->
+            
+            <!-- <div th:if="${#fields.hasErrors()}">   don't delete this comment
+                    <ul class="alert alert-danger">
+                        <li th:each="error: ${#fields.allErrors()}" th:text="${error}" />
+                    </ul>
+            </div> -->
+
+            <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="content" class="form-label">Content</label>
+                <input type="text" class="form-control" id="content" th:field="*{content}">
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

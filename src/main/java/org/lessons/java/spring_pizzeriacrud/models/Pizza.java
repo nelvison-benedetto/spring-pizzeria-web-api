@@ -2,10 +2,15 @@ package org.lessons.java.spring_pizzeriacrud.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.annotation.Generated;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -16,6 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -62,6 +68,11 @@ public class Pizza {
 
     // @NotNull
     // private LocalDate publicationDate;
+
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)  //"pizza" al singolare!, CascadeType.All better delete also updates-persists-merges,orphanRemoval ensures if a review is removed from reviews it will be also deleted from the db
+    @JsonManagedReference  //used on the parent side
+    private List<Review> reviews = new ArrayList<>();;
+
 
     @Override
     public String toString(){

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books Index</title>
+    <title>Pizzas Index</title>
     <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
     <th:block th:replace="~{fragments/head.html::style_jsscript}" />
 </head>
@@ -60,6 +60,9 @@
                             <h4 th:text="${pizza.id}" class="fs-6 mb-1"  />
                             <h2 th:text="${pizza.title}" class="card-title" />
                             <p th:text="${pizza.content}" class="card-text" style="margin-top: -0.2rem;" />
+
+                            <a th:href="@{/reviews/{id}/form(id=${pizza.id} )}" th:text="|Form for add new review!|" />
+                            
                             <div class="position-absolute d-flex text-end gap-1" style="bottom: 1rem; right:1rem; padding-left: 1rem;">
                                 <a href="#" class="btn bg-orange  d-flex " style="gap: 0.32rem;">   <!--using bootstap @mediaqueries to show one or the other -->
                                     <span class="btn-text   d-sm-inline d-md-inline d-lg-inline d-xl-inline">Add</span>  <!--d-none -->
@@ -74,7 +77,8 @@
                     </div>
                 </div>
             </div>
-            <h3 th:if="${ #lists.isEmpty(pizzas) }" th:text="|No pizzas found.|" class="text-center text-white"/>  <!--replaced th:unless -->
+            <h3 th:if="${ #lists.isEmpty(pizzas) }" th:text="|No pizzas found.|" class="text-center text-white"/>  <!--better, replaced ex th:unless -->
+               <!-- <p th:text="${pizzas.size() > 0} ? 'Number of pizzas: ' + ${pizzas.size()} : 'No pizzas found.'" />  //compact & easy, here can crash if pizzas==null -->
         </article>
         
     </div>

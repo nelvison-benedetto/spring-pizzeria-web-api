@@ -20,6 +20,6 @@ public class DatabaseSeeder implements CommandLineRunner{
     @Override
     public void run(String... args){
         pizzaSeeder.seed();
-        reviewSeeder.seed(12);
+        reviewSeeder.seed(5);
     }
 }

@@ -8,8 +8,124 @@
     <th:block th:replace="~{fragments/head.html::style_jsscript}" />
 </head>
 <body>
-    
-    <h1 th:text="${pizza.id}"></h1>
+    <div class="container">
+    <!-- <h2 th:text="${pizza.reviews}" /> -->
+    <h1 th:text="|Details pizza '${pizza.title}'|" class="mb-2"/>
 
+    <h2 th:text="|Create new Review|" />
+    <form th:action="@{/reviews/{id}/create(id=${pizza.id})}" method="post" th:object="${review}" class="mb-2"> 
+        <input type="hidden" th:field="*{pizza}" id="linked-review">  
+        <!-- <div th:if="${#fields.hasErrors()}">   don't delete this comment
+                <ul class="alert alert-danger">
+                    <li th:each="error: ${#fields.allErrors()}" th:text="${error}" />
+                </ul>
+        </div> -->
+        <div class="form-group">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid"> 
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">  
+                <ul>
+                    <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="form-label">Content</label>
+            <input type="text" class="form-control" id="content" th:field="*{content}">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+     </form> 
+  
+    
+    <article class="mb-2">
+        <h2>Reviews</h2>
+        <!-- <h3 th:if="${reviews == null}" th:text="|non-existing reviews!|" class="text-muted text-center" /> -->
+        <div class="row g-3" th:if="${not #lists.isEmpty(pizza.reviews)}">   
+            <div class="col-sm-6 col-md-4 col-lg-3" th:each="review : ${pizza.reviews}">  <!--!BETTER than reviews.size()>0, if u don't use th:object in the children don't use *{}!!-->
+                <div class="card bg-gray">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted" th:text="${review.id}" />
+                        <h5 class="card-title" th:text="${review.title}" />
+                        <p class="card-text" th:text="${review.content}" />
+
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#update-modal-' + ${review.id}">Update</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${review.id}">Delete</button>
+
+                        <!--modal(popup) x DELETE-->
+                        <div class="modal fade" th:id="'delete-modal-' + ${review.id}" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModallabel">
+                                            Deleting "[[${review.title}]]"
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want deleted the review with title <strong>"[[${review.title}]]"</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <form th:action="@{/reviews/delete/{id}(id=${review.id})}" method="post" class="d-inline-block">
+                                            <input type="hidden" name="_method" value="delete" />  <!--spring doesn't accept DELETE in the form, but with POST+ _method&value yes-->
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--modal(popup) x PUT-->
+                        <div class="modal fade" th:id="'update-modal-' + ${review.id}" tabindex="-1" aria-labelledby="update-modal"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">Update Review</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div> 
+                                    <div class="modal-body">
+                                        <form th:action="@{/reviews/update/{id}(id=${review.id})}" method="post" >  <!-- th:object="${review}" -->
+                                            
+                                            <input type="hidden" name="pizza" th:value="${review.pizza?.id}" id="linked-pizza">  
+                                            <input type="hidden" name="_method" value="put" />  <!--spring doesn't accept PUT in the form, but with POST+ _method&value yes-->
+                                        <!-- <div th:if="${#fields.hasErrors()}">   don't delete this comment
+                                                <ul class="alert alert-danger">
+                                                    <li th:each="error: ${#fields.allErrors()}" th:text="${error}" />
+                                                </ul>
+                                            </div> -->
+                                            
+                                            <div class="mb-3">
+                                                <label for="title" class="form-label">Title</label>
+                                                <input type="text" class="form-control" id="title" name="title" th:value="${review.title}" placeholder="Title" 
+                                                    required >  <!--th:errorClass="is-invalid",   IT'S BETTER USING th:field instead of name&th:value x automatic data binding and spring validations-->
+                                                <!--<div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">  SHOW ERROR RENDER INVALID FIELD 
+                                                    <ul>
+                                                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                                                    </ul>
+                                                </div>-->
+                                              </div>
+                                            <div class="mb-3">
+                                                <label for="content" class="form-label">Content</label>
+                                                <textarea class="form-control" id="content" name="content" rows="5" placeholder="Content">[[${review.content}]]</textarea>  <!--IT'S BETTER USING th:field instead of name&th:value x automatic data binding and spring validations-->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </form> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 th:if="${ #lists.isEmpty(pizza.reviews)}" th:text="|No reviews found.|" class="text-muted text-center" />  <!--replaced ex th:unless -->
+    </article>   
+
+</div>
 </body>
 </html>
