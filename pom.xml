@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.lessons.java</groupId>
-	<artifactId>spring_pizzeriacrud</artifactId>
+	<artifactId>spring_pizzeriacrudrelationships</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring_pizzeriacrud</name>
+	<name>spring_pizzeriacrudrelationships</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
