@@ -1,13 +1,14 @@
-package org.lessons.java.spring_pizzeriacrud.controllers;
+package org.lessons.java.spring_pizzeriacrudrelationships.controllers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.lessons.java.spring_pizzeriacrud.models.Pizza;
-import org.lessons.java.spring_pizzeriacrud.models.Review;
-import org.lessons.java.spring_pizzeriacrud.repository.PizzaRepository;
+import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
+import org.lessons.java.spring_pizzeriacrudrelationships.models.Review;
+import org.lessons.java.spring_pizzeriacrudrelationships.models.SpecialOffer;
+import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,14 @@ public class PizzaController {
     Model model){
         Pizza pizza = pizzaRepository.findById(id).get();
         Review review =  new Review();
+        SpecialOffer specialOffer = new SpecialOffer();
         review.setPizza(pizza);
+        specialOffer.setPizza(pizza);
         model.addAttribute("pizza", pizza);
         model.addAttribute("review", review);
-        System.out.println("reviews linked to this pizza: "+pizza.getReviews());
+        model.addAttribute("specialOffer", specialOffer);
+        // System.out.println("reviews linked to this pizza: "+pizza.getReviews());
+        // System.out.println("specialoffers linked to this pizza: "+pizza.getSpecialoffers());
         return "pizzas/show";
     }
 

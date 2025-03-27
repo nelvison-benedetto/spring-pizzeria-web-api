@@ -1,11 +1,11 @@
-package org.lessons.java.spring_pizzeriacrud.seeders;
+package org.lessons.java.spring_pizzeriacrudrelationships.seeders;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lessons.java.spring_pizzeriacrud.models.Review;
-import org.lessons.java.spring_pizzeriacrud.repository.PizzaRepository;
-import org.lessons.java.spring_pizzeriacrud.repository.ReviewRepository;
+import org.lessons.java.spring_pizzeriacrudrelationships.models.Review;
+import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
+import org.lessons.java.spring_pizzeriacrudrelationships.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

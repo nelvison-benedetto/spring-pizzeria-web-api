@@ -1,4 +1,4 @@
-package org.lessons.java.spring_pizzeriacrud.models;
+package org.lessons.java.spring_pizzeriacrudrelationships.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -71,8 +71,12 @@ public class Pizza {
 
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)  //"pizza" al singolare!, CascadeType.All better delete also updates-persists-merges,orphanRemoval ensures if a review is removed from reviews it will be also deleted from the db
     @JsonManagedReference  //used on the parent side
-    private List<Review> reviews = new ArrayList<>();;
+    private List<Review> reviews = new ArrayList<>();  //set as empty! so it won't be null!!
 
+
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  //used on the parent side
+    private List<SpecialOffer> specialoffers = new ArrayList<>();  //set as empty! so it won't be null!!
 
     @Override
     public String toString(){

@@ -1,4 +1,6 @@
-package org.lessons.java.spring_pizzeriacrud.models;
+package org.lessons.java.spring_pizzeriacrudrelationships.models;
+
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -8,22 +10,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "special_offer")
 @Getter @Setter @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class SpecialOffer {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,19 +35,21 @@ public class Review {
     private String title;
 
     @Column(nullable = false)
-    @Size(max = 355, message = "content text cannot overload more than 355chars.")
-    @Lob
-    private String content = "";  //default value "" !
+    @NotNull(message = "startDate cannot be null.")
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    @NotNull(message = "endDate cannot be null.")
+    private LocalDate endDate;
+    //@PastOrPresent (u cannot add future dates)
 
     @ManyToOne
-    @JoinColumn(name="pizza_id", nullable = false)
+    @JoinColumn(name = "pizza_id", nullable = false)
     @JsonBackReference  //used on the child side
     private Pizza pizza;
 
-
     @Override
     public String toString(){
-        return String.format("%s %s %s", id, title, content);
-        
+        return String.format( "%s %s %s %s", id, title, startDate, endDate);
     }
 }
