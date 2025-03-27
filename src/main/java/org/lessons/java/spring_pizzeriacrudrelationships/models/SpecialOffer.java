@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "special_offer")
+@Table(name = "specialoffers")
 @Getter @Setter @NoArgsConstructor
 @AllArgsConstructor
 public class SpecialOffer {

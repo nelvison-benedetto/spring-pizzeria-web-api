@@ -61,7 +61,8 @@
                             <h2 th:text="${pizza.title}" class="card-title" />
                             <p th:text="${pizza.content}" class="card-text" style="margin-top: -0.2rem;" />
 
-                            <a th:href="@{/reviews/{id}/form(id=${pizza.id} )}" th:text="|Form for add new review!|" />
+                            <a th:href="@{/reviews/{id}/form(id=${pizza.id} )}" th:text="|Form add new review!|" />
+                            <a th:href="@{/specialoffers/{id}/form(id=${pizza.id} )}" th:text="|Form add new specialoffer!|" />
                             
                             <div class="position-absolute d-flex text-end gap-1" style="bottom: 1rem; right:1rem; padding-left: 1rem;">
                                 <a href="#" class="btn bg-orange  d-flex " style="gap: 0.32rem;">   <!--using bootstap @mediaqueries to show one or the other -->

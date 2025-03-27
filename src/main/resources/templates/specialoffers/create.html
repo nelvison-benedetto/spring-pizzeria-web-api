@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Offer Create</title>
+    <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
+    <th:block th:replace="~{fragments/head.html::style_jsscript}" />
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-2">Create new Special Offer</h2>
+        <form th:action="@{/specialoffers/{id}/create(id=${specialoffer.pizza.id})}" method="post" th:object="${specialoffer}">  
+            <!--possible also use th:action="${edit}? @{|/reviews/edit/${review.id}|}" : @{|/reviews/create|}  if form create and edit are equal!-->
+                <!--and in the controller add  model.addAttribute("edit", true)
+                return "pizzas/create-or-edit.html" //her in this html there is the form used for both create&edit review-->
+            <!--!!better using th:object x POST actions!-->
+            <input type="hidden" th:field="*{pizza}" id="linked-pizza"> <!--ADD THIS TO RECOVER UR PIZZA AFTER ERRORS/REFRESH!-->
+            
+            <!-- <div th:if="${#fields.hasErrors()}">   don't delete this comment
+                    <ul class="alert alert-danger">
+                        <li th:each="error: ${#fields.allErrors()}" th:text="${error}" />
+                    </ul>
+            </div> -->
+
+            <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="startDate" th:field="*{startDate}" th:errorClass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('startDate')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="endDate" th:field="*{endDate}" th:errorClass="is-invalid" required>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('endDate')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
