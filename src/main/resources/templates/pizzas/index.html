@@ -13,6 +13,10 @@
 
     <div class="container">
 
+        <div class="text-end">
+            <a th:href="@{/ingredients}" class="btn btn-warning text-primary mb-4">Ingredients 🌎</a>
+            <a th:href="@{/pizzas/create}" class="btn btn-primary mb-4">Create New Pizza 🍕</a>
+        </div>
         <form th:action="@{/pizzas/searchByForm}" method="get" class="card rounded p-4 bg-blacktransparent text-white mb-4">
             <h3 class="fs-2">Filter by</h3>
             <div class="row mb-2">
@@ -73,6 +77,12 @@
                                     <span class="btn-text  d-xs-inline  d-sm-none d-md-inline  d-lg-inline d-xl-inline">View more</span>
                                     <i class="bi bi-info-circle-fill  d-none d-sm-inline d-md-none  d-lg-none  d-xl-none"></i>
                                 </a>
+                                <form th:action="@{pizzas/delete/{id}(id=${pizza.id})}" method="post" class="d-inline">
+                                    <!-- <input type="hidden" name="_method" value="delete" /> -->
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

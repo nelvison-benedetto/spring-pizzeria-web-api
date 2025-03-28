@@ -81,7 +81,7 @@ public class IngredientController {
         return "redirect:/ingredients";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")  //or also using Cascare in the entity
     public String ingredientsDelete(@PathVariable Integer id){
         Ingredient ingredientTotDelete = ingredientRepository.findById(id).get();
         for(Pizza linkedPizza : ingredientTotDelete.getPizzas()){

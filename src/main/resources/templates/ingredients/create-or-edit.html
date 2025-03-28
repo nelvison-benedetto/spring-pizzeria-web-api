@@ -11,7 +11,7 @@
     <div class="container">
         <h1 th:if="${edit}" class="fw-bold">Edit your Ingredient!</h1>
         <h1 th:unless="${edit}" class="fw-bold">Create your ingredient!</h1>
-        <h4 th:text="|all pizzas linked to this ingredient: ${ingredient.pizzas}|" />
+        <!-- <h4 th:text="|all pizzas linked to this ingredient: ${ingredient.pizzas}|" /> -->
         <form th:action="${edit}?  @{|/ingredients/edit/${ingredient.id}|} : @{|/ingredients/create|}" method="post" th:object="${ingredient}">
             <!--and in the controller add  model.addAttribute("edit", true)
                 return "pizzas/create-or-edit.html" //her in this html there is the form used for both create&edit review-->

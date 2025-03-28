@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Create or Edit</title>
+    <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
+    <th:block th:replace="~{fragments/head.html::style_jsscript}" />
+</head>
+<body>
+    <div class="container pt-4">
+        <h1 th:if="${edit}" class="fw-bold">Edit Your Pizza!</h1>
+        <h1 th:unless="${edit}" class="fw-bold">Create New Pizza!</h1>
+        <form th:action="@{${edit}?  @{|/pizzas/edit/${pizza.id}|} : @{|/pizzas/create|}}" method="post" th:object="${pizza}">
+            <input type="hidden" field="" id="linked-">
+            <div class="form-group mb-2">
+                <label for="title" class="form-lable">Title</label>
+                <input type="text" th:field="*{title}" class="form-control" id="title" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="content" class="form-label">Content</label>
+                <input type="text" th:field="*{content}" class="form-control" id="content" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('content')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="content" class="form-label">Picture</label>
+                <input type="text" th:field="*{picture}" class="form-control" id="picture" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('picture')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('picture')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control" th:field="*{price}" id="price" th:errorClass="is-invalid" step="0.01" min="0">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('price')}" th:text="${error}" />
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-4 " style="margin-left: -1.6rem;">
+                <div class="single-ingredient form-check " th:each="ingredient : ${ingredients}">
+                    <input type="checkbox" th:id="|ingredient-${ingredient.id}|" th:field="${pizza.ingredients}" th:value="${ingredient.id}">
+                    <label for="|ingredient-${ingredient.id}|" class="form-check-label" th:text="${ingredient.title}" />
+                </div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -7,10 +7,13 @@
     <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
     <th:block th:replace="~{fragments/head.html::style_jsscript}" />
 </head>
-<body>
-    <div class="container">
+<body class="">
+    <div class="container pt-4">
         <h1 th:text="| Ingredient ${ingredient.title}|"/>
-        <h2 th:text="|Pizzas with this ingredient: ${ingredient.pizzas}|" />
+        <h2 th:text="|Pizzas with this ingredient: ${ingredient.pizzas.size()}|" />
+        <div th:each="pizza : ${ingredient.pizzas}" class="">
+            <h4 th:text="${pizza.title}" class="text-success" />
+        </div>
     </div>
 </body>
 </html>

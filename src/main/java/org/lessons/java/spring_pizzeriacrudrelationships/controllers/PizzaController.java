@@ -5,19 +5,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.lessons.java.spring_pizzeriacrudrelationships.models.Ingredient;
 import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
 import org.lessons.java.spring_pizzeriacrudrelationships.models.Review;
 import org.lessons.java.spring_pizzeriacrudrelationships.models.SpecialOffer;
+import org.lessons.java.spring_pizzeriacrudrelationships.repository.IngredientRepository;
 import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
 import org.lessons.java.spring_pizzeriacrudrelationships.repository.SpecialOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import net.datafaker.providers.base.Book;
 
 @Controller
@@ -26,11 +32,13 @@ public class PizzaController {
     
     private final PizzaRepository pizzaRepository;
     private final SpecialOfferRepository specialOfferRepository;
+    private final IngredientRepository ingredientRepository;
 
     @Autowired  //inject instance of PizzaRepository in this instance of PizzaController, from spring v 4.3+ here not necessary explicit(@...) if only 1 constr
-    public PizzaController(PizzaRepository pizzaRepository, SpecialOfferRepository specialOfferRepository){
+    public PizzaController(PizzaRepository pizzaRepository, SpecialOfferRepository specialOfferRepository, IngredientRepository ingredientRepository){
         this.pizzaRepository = pizzaRepository;
         this.specialOfferRepository = specialOfferRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @GetMapping  //without path is a get to '/pizzas'
@@ -56,6 +64,51 @@ public class PizzaController {
         // System.out.println("reviews linked to this pizza: "+pizza.getReviews());
         // System.out.println("specialoffers linked to this pizza: "+pizza.getSpecialoffers());
         return "pizzas/show";
+    }
+
+    @GetMapping("/create")
+    public String createPizza(Model model){
+        model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
+        return "pizzas/create-or-edit.html";
+    }
+    @PostMapping("/create")
+    public String storePizza(@Valid @ModelAttribute("pizza") Pizza createPizza,
+    BindingResult bindingResult, Model model){
+        System.out.println("POST RECEIVED!!");
+        if(bindingResult.hasErrors()){ 
+            System.out.println("returning x binding!!!");
+            model.addAttribute("ingredients", ingredientRepository.findAll()); //otherwise at the return there will be no ingredients
+            return "pizzas/create-or-edit.html"; 
+        }
+        pizzaRepository.save(createPizza);
+        return "redirect:/pizzas";
+    }
+
+    @GetMapping("edit/{id}")
+    public String editPizza(@PathVariable Integer id, Model model){
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("edit", true);
+        return "pizzas/create-or-edit.html";
+    }
+
+    @PostMapping("edit/{id}")
+    public String editPizza(@Valid @ModelAttribute("pizza") Pizza editPizza,
+    BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("ingredients", ingredientRepository.findAll());
+            return "pizzas/create-or-edit.html";
+        }
+        pizzaRepository.save(editPizza);
+        return "redirect:/pizzas";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deletePizza(@PathVariable Integer id){
+        if(pizzaRepository.existsById(id)){
+            pizzaRepository.deleteById(id);
+        }
+        return "redirect:/pizzas";
     }
 
     //filters
