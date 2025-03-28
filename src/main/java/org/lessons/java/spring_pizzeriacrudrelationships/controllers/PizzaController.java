@@ -35,8 +35,8 @@ public class PizzaController {
 
     @GetMapping  //without path is a get to '/pizzas'
     public String pizzasIndex(Model model){
-        List<Pizza> pizzas = pizzaRepository.findAll();
-        model.addAttribute("pizzas", pizzas != null ? pizzas : List.of());   //ensures that pizzas is never null!!
+        List<Pizza> pizzas = pizzaRepository.findAll();  //.find() can return empty but never null!
+        model.addAttribute("pizzas", pizzas);  
         return "pizzas/index";
     }
 

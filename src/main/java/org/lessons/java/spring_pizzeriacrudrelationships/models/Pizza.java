@@ -1,5 +1,6 @@
 package org.lessons.java.spring_pizzeriacrudrelationships.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -36,8 +39,9 @@ import lombok.Setter;
 @Table(name="pizzas")
 @Getter @Setter @NoArgsConstructor
 @AllArgsConstructor
-public class Pizza {
-    
+public class Pizza implements Serializable{
+    private static final long serialVersionUID = 1L;  //!Recommended for versioning
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -78,6 +82,16 @@ public class Pizza {
     @JsonManagedReference  //used on the parent side
     private List<SpecialOffer> specialoffers = new ArrayList<>();  //set as empty! so it won't be null!!
 
+    @ManyToMany
+    @JoinTable(
+        name = "ingredient_pizza",  //singolar, alphabetic order
+        joinColumns = @JoinColumn(name = "pizza_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private List<Ingredient> ingredients = new ArrayList<>();  //x many-to-many relations better SET<> because we don't want duplicates
+
+
+    
     @Override
     public String toString(){
         return String.format("%s %s %s", id, title, price);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients Index</title>
+    <th:block th:replace="~{fragments/head.html::bootstrap}" />  <!-- ~ :  Alt+126(numerini)-->
+    <th:block th:replace="~{fragments/head.html::style_jsscript}" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-2 mt-2">All Ingredients</h1>
+        <a th:href="@{ingredients/create}" class="btn btn-primary mb-2">Create new Ingredient</a>
+        <div class="row" >
+            <div class="col-sm-6 col-md-4 col-lg-3" th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted" th:text="${ingredient.id}" />
+                        <h5 class="card-title" th:text="*{title}" />
+                        <a th:href="@{ingredients/show/{id}(id=*{id})}" class="btn btn-primary">Show</a>
+                        <a th:href="@{ingredients/edit/{id}(id=*{id})}" class="btn btn-success">Edit</a>
+                        <form th:action="@{ingredients/delete/{id}(id=*{id})}" method="post" class="d-inline">
+                            <!-- <input type="hidden" name="_method" value="delete" /> -->
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

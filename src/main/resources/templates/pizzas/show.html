@@ -173,8 +173,8 @@
     </form>
 
     <!--all specialoffers-->
-    <article class="mb-2">
-        <h2>Special Offers</h2>
+    <article class="mb-2 mt-2">
+        <h2>Special Offers for this Pizza!</h2>
         <div class="row g-3" th:if="${not #lists.isEmpty(pizza.specialoffers)}">
             <div class="col-sm-6 col-md-4 col-lg-3" th:each="specialoffer : ${pizza.specialoffers}">
                 <div class="card bg-warning">
@@ -265,6 +265,9 @@
         <h4 th:if="${ #lists.isEmpty(pizza.specialoffers)}" th:text="|No specialoffers found.|" class="text-muted text-center" />  <!--replaced ex th:unless -->
     </article>
 
+    <article>
+        
+    </article>
 
 </div>
 </body>

@@ -1,5 +1,6 @@
 package org.lessons.java.spring_pizzeriacrudrelationships.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,8 +25,9 @@ import lombok.Setter;
 @Table(name = "specialoffers")
 @Getter @Setter @NoArgsConstructor
 @AllArgsConstructor
-public class SpecialOffer {
-    
+public class SpecialOffer implements Serializable{
+    private static final long serialVersionUID = 1L;  //!Recommended for versioning
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
