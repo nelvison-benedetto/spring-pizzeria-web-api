@@ -1,7 +1,7 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.repository;
+package org.lessons.java.spring_pizzeriawebapi.repository;
 
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Review;
+import org.lessons.java.spring_pizzeriawebapi.models.Pizza;
+import org.lessons.java.spring_pizzeriawebapi.models.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer>{

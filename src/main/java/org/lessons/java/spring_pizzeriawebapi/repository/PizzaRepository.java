@@ -1,10 +1,10 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.repository;
+package org.lessons.java.spring_pizzeriawebapi.repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
+import org.lessons.java.spring_pizzeriawebapi.models.Pizza;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

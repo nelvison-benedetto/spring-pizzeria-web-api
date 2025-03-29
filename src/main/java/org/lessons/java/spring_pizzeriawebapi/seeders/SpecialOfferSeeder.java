@@ -1,14 +1,14 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.seeders;
+package org.lessons.java.spring_pizzeriawebapi.seeders;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
-import org.lessons.java.spring_pizzeriacrudrelationships.models.SpecialOffer;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.SpecialOfferRepository;
+import org.lessons.java.spring_pizzeriawebapi.models.Pizza;
+import org.lessons.java.spring_pizzeriawebapi.models.SpecialOffer;
+import org.lessons.java.spring_pizzeriawebapi.repository.PizzaRepository;
+import org.lessons.java.spring_pizzeriawebapi.repository.SpecialOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

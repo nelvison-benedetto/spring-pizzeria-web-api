@@ -1,10 +1,10 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.seeders;
+package org.lessons.java.spring_pizzeriawebapi.seeders;
 
 import org.hibernate.annotations.Comment;
+import org.lessons.java.spring_pizzeriawebapi.seeders.IngredientSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.lessons.java.spring_pizzeriacrudrelationships.seeders.IngredientSeeder;
 
 @Component
 public class DatabaseSeeder implements CommandLineRunner{

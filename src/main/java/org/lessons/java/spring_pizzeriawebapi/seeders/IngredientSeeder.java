@@ -1,4 +1,4 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.seeders;
+package org.lessons.java.spring_pizzeriawebapi.seeders;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Ingredient;
-import org.lessons.java.spring_pizzeriacrudrelationships.models.SpecialOffer;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.IngredientRepository;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
+import org.lessons.java.spring_pizzeriawebapi.models.Ingredient;
+import org.lessons.java.spring_pizzeriawebapi.models.SpecialOffer;
+import org.lessons.java.spring_pizzeriawebapi.repository.IngredientRepository;
+import org.lessons.java.spring_pizzeriawebapi.repository.PizzaRepository;
 import org.springframework.stereotype.Component;
 
 import net.datafaker.Faker;

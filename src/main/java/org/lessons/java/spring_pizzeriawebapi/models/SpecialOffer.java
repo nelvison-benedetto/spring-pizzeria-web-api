@@ -1,4 +1,4 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.models;
+package org.lessons.java.spring_pizzeriawebapi.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;

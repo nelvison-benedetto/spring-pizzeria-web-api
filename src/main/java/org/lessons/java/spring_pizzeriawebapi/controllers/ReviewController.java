@@ -1,11 +1,11 @@
-package org.lessons.java.spring_pizzeriacrudrelationships.controllers;
+package org.lessons.java.spring_pizzeriawebapi.controllers;
 
 import java.util.List;
 
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Pizza;
-import org.lessons.java.spring_pizzeriacrudrelationships.models.Review;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.PizzaRepository;
-import org.lessons.java.spring_pizzeriacrudrelationships.repository.ReviewRepository;
+import org.lessons.java.spring_pizzeriawebapi.models.Pizza;
+import org.lessons.java.spring_pizzeriawebapi.models.Review;
+import org.lessons.java.spring_pizzeriawebapi.repository.PizzaRepository;
+import org.lessons.java.spring_pizzeriawebapi.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
