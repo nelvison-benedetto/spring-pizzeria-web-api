@@ -65,7 +65,7 @@ public class Pizza implements Serializable{
     @Min(value = 0, message = "price cannot be negative.")
     private BigDecimal price;
 
-    @ElementCollection(fetch = FetchType.EAGER)  // Stores as a separate table
+    @ElementCollection(fetch = FetchType.LAZY)  //EAGER Stores as a separate table
     @CollectionTable(name = "pizza_restrictions", joinColumns = @JoinColumn(name = "pizza_id"))
     @Column(name = "restriction")
     private Set<String> restrictions = new HashSet<>();  //IT WILL NEVER BE NULL!verygood 

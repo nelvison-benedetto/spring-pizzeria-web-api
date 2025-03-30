@@ -12,6 +12,7 @@ import org.lessons.java.spring_pizzeriawebapi.models.SpecialOffer;
 import org.lessons.java.spring_pizzeriawebapi.repository.IngredientRepository;
 import org.lessons.java.spring_pizzeriawebapi.repository.PizzaRepository;
 import org.lessons.java.spring_pizzeriawebapi.repository.SpecialOfferRepository;
+import org.lessons.java.spring_pizzeriawebapi.services.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,20 +31,20 @@ import net.datafaker.providers.base.Book;
 @RequestMapping("/pizzas")
 public class PizzaController {
     
-    private final PizzaRepository pizzaRepository;
+    private final PizzaService pizzaService;
     private final SpecialOfferRepository specialOfferRepository;
     private final IngredientRepository ingredientRepository;
 
     @Autowired  //inject instance of PizzaRepository in this instance of PizzaController, from spring v 4.3+ here not necessary explicit(@...) if only 1 constr
-    public PizzaController(PizzaRepository pizzaRepository, SpecialOfferRepository specialOfferRepository, IngredientRepository ingredientRepository){
-        this.pizzaRepository = pizzaRepository;
+    public PizzaController(PizzaService pizzaService, SpecialOfferRepository specialOfferRepository, IngredientRepository ingredientRepository){
+        this.pizzaService = pizzaService;
         this.specialOfferRepository = specialOfferRepository;
         this.ingredientRepository = ingredientRepository;
     }
 
     @GetMapping  //without path is a get to '/pizzas'
     public String pizzasIndex(Model model){
-        List<Pizza> pizzas = pizzaRepository.findAll();  //.find() can return empty but never null!
+        List<Pizza> pizzas = pizzaService.findAll();  //.find() can return empty but never null!
         model.addAttribute("pizzas", pizzas);  
         return "pizzas/index";
     }
@@ -51,7 +52,9 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String pizzasShow(@PathVariable("id") Integer id,
     Model model){
-        Pizza pizza = pizzaRepository.findById(id).orElseThrow(() -> new RuntimeException("Pizza not found."));
+        Pizza pizza = pizzaService.getById(id);
+        System.out.println("Pizza: " + pizza.getTitle() + ", Restrictions: " + pizza.getRestrictions());
+
         Review review = new Review();
         review.setPizza(pizza);  //link the pizza to the new review
 
@@ -81,13 +84,13 @@ public class PizzaController {
             model.addAttribute("ingredients", ingredientRepository.findAll()); //otherwise at the return there will be no ingredients
             return "pizzas/create-or-edit.html"; 
         }
-        pizzaRepository.save(createPizza);
+        pizzaService.create(createPizza);
         return "redirect:/pizzas";
     }
 
     @GetMapping("edit/{id}")
     public String editPizza(@PathVariable Integer id, Model model){
-        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        model.addAttribute("pizza", pizzaService.getById(id));
         model.addAttribute("edit", true);
         return "pizzas/create-or-edit.html";
     }
@@ -97,17 +100,16 @@ public class PizzaController {
     BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("ingredients", ingredientRepository.findAll());
+            model.addAttribute("edit", true);
             return "pizzas/create-or-edit.html";
         }
-        pizzaRepository.save(editPizza);
+        pizzaService.edit(editPizza);
         return "redirect:/pizzas";
     }
 
     @PostMapping("/delete/{id}")
     public String deletePizza(@PathVariable Integer id){
-        if(pizzaRepository.existsById(id)){
-            pizzaRepository.deleteById(id);
-        }
+        pizzaService.deleteById(id);
         return "redirect:/pizzas";
     }
 
@@ -125,21 +127,21 @@ public class PizzaController {
         List<Pizza> pizzas;      
         if (restrictions.isEmpty()) {  
             if (title == null || title.isBlank()){
-                pizzas = pizzaRepository.findByContentContaining(content); 
+                pizzas = pizzaService.findByContentContaining(content); 
             }
             else if (content == null || content.isBlank()) {  
-                pizzas = pizzaRepository.findByTitleContaining(title);  
+                pizzas = pizzaService.findByTitleContaining(title);  
             } 
             else {  
-                pizzas = pizzaRepository.findByTitleContainingAndContentContaining(title, content);  
+                pizzas = pizzaService.findByTitleContainingAndContentContaining(title, content);  
             }  
         }else {  
             if (title == null || title.isBlank()) {  
-                pizzas = pizzaRepository.findByContentContainingAndRestrictionsIn(content, restrictions);  
+                pizzas = pizzaService.findByContentContainingAndRestrictionsIn(content, restrictions);  
             }else if(content == null || content.isBlank()){  
-                pizzas = pizzaRepository.findByTitleContainingAndRestrictionsIn(title, restrictions);
+                pizzas = pizzaService.findByTitleContainingAndRestrictionsIn(title, restrictions);
             } else{
-                pizzas = pizzaRepository.findByTitleContainingAndContentContainingAndRestrictionsIn(title, content, restrictions); 
+                pizzas = pizzaService.findByTitleContainingAndContentContainingAndRestrictionsIn(title, content, restrictions); 
             }
         }
         model.addAttribute("pizzas", pizzas);
@@ -147,15 +149,15 @@ public class PizzaController {
     }
 
 
-    @GetMapping("/searchByPriceBetween")
-    public String searchByPriceBetween(
-    @RequestParam(name="min", defaultValue ="0") BigDecimal min,
-    @RequestParam(name="max", defaultValue = "100") BigDecimal max,
-    Model model){
-        List<Pizza> pizzas = pizzaRepository.findByPriceBetween(min, max);
-        model.addAttribute("pizzas", pizzas);
-        return "pizzas/index";
-    }
+    // @GetMapping("/searchByPriceBetween")
+    // public String searchByPriceBetween(
+    // @RequestParam(name="min", defaultValue ="0") BigDecimal min,
+    // @RequestParam(name="max", defaultValue = "100") BigDecimal max,
+    // Model model){
+    //     List<Pizza> pizzas = pizzaService.findByPriceBetween(min, max);
+    //     model.addAttribute("pizzas", pizzas);
+    //     return "pizzas/index";
+    // }
 
     // @GetMapping("/searchByTitleOrAuthor")  //http://localhost:8080/books/searchByTitleOrAuthor?query=alejandra
     // public String searchByTitleOrAuthor(@RequestParam(name="query") String query,
@@ -164,6 +166,5 @@ public class PizzaController {
     //     model.addAttribute("books", books);
     //     return "books/index";
     // }
-
-
+    
 }

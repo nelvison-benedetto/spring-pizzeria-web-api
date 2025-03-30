@@ -60,14 +60,17 @@
                         <div class="pizza-img d-flex justify-content-center align-items-center">
                             <img th:src="@{ /images/pizzas/{img} (img=${pizza.picture}) }" alt="pizza image" class="card-image-top ">
                         </div>
-                        <div class="card-body d-flex flex-column position-relative" style="padding-bottom: 3.3rem;">
+                        <div class="card-body d-flex flex-column position-relative" style="padding-bottom: 4.0rem;">
                             <h4 th:text="${pizza.id}" class="fs-6 mb-1"  />
                             <h2 th:text="${pizza.title}" class="card-title" />
-                            <p th:text="${pizza.content}" class="card-text" style="margin-top: -0.2rem;" />
+                            <p th:text="${pizza.content}" class="card-text" />
 
-                            <a th:href="@{/reviews/{id}/form(id=${pizza.id} )}" th:text="|Form add new review!|" />
-                            <a th:href="@{/specialoffers/{id}/form(id=${pizza.id} )}" th:text="|Form add new specialoffer!|" />
-                            
+                            <div class="d-flex flex-column" style="margin: 0.0rem 0 0 0;">
+                                <a th:href="@{/pizzas/edit/{id}(id=${pizza.id} )}" th:text="|Edit your pizza!|" />
+                                <a th:href="@{/reviews/{id}/form(id=${pizza.id} )}" th:text="|Form add new review!|" />
+                                <a th:href="@{/specialoffers/{id}/form(id=${pizza.id} )}" th:text="|Form add new specialoffer!|" />
+                                
+                            </div>
                             <div class="position-absolute d-flex text-end gap-1" style="bottom: 1rem; right:1rem; padding-left: 1rem;">
                                 <a href="#" class="btn bg-orange  d-flex " style="gap: 0.32rem;">   <!--using bootstap @mediaqueries to show one or the other -->
                                     <span class="btn-text   d-sm-inline d-md-inline d-lg-inline d-xl-inline">Add</span>  <!--d-none -->
