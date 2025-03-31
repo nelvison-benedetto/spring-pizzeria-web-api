@@ -25,7 +25,7 @@ public class DatabaseSeeder implements CommandLineRunner{
     @Override
     public void run(String... args){
         pizzaSeeder.seed();
-        reviewSeeder.seed(5);
+        reviewSeeder.seed(9);
         specialOfferSeeder.seed();
         ingredientSeeder.seed();
     }
